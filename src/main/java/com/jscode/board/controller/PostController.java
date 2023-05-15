@@ -36,7 +36,7 @@ public class PostController {
         return postService.findPost(id);
     }
 
-    //게시글 수정
+    //게시글 업데이트
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{id}")
     public Post updatePost(@PathVariable Long id, @RequestBody Post p){

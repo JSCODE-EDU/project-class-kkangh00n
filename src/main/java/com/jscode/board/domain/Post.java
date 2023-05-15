@@ -17,6 +17,7 @@ public class Post {
     @Column(name = "content", nullable = false)
     private String content;
 
+    //엔티티에 업데이트 기능 이동
     public void updatePost(String title, String content){
         this.title = title;
         this.content = content;

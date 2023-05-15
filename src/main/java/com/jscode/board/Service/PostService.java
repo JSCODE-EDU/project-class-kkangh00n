@@ -20,7 +20,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    @Transactional      //게시글 수정
+    @Transactional      //게시글 수정, 엔티티에서 기능 실행
     public Post updatePost(Long id, String title, String content){
         Post post = postRepository.find(id);
         post.updatePost(title, content);
