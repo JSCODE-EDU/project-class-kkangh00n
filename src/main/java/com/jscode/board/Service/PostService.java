@@ -23,8 +23,7 @@ public class PostService {
     @Transactional      //게시글 수정
     public Post updatePost(Long id, String title, String content){
         Post post = postRepository.find(id);
-        post.setTitle(title);
-        post.setContent(content);
+        post.updatePost(title, content);
         return post;
     }
 

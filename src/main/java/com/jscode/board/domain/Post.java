@@ -9,11 +9,16 @@ import lombok.Setter;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @Column(name = "title", nullable = false)
-    public String title;
+    private String title;
 
     @Column(name = "content", nullable = false)
-    public String content;
+    private String content;
+
+    public void updatePost(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }
