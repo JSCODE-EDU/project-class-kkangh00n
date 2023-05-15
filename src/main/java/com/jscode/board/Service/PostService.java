@@ -12,8 +12,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PostService {
-    public final PostRepository postRepository;
 
+    private final PostRepository postRepository;
 
     @Transactional      //게시글 작성
     public Post savePost(Post post){
