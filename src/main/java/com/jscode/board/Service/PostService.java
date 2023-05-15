@@ -12,19 +12,18 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PostService {
-    public final PostRepository postRepository;
 
+    private final PostRepository postRepository;
 
     @Transactional      //게시글 작성
     public Post savePost(Post post){
         return postRepository.save(post);
     }
 
-    @Transactional      //게시글 수정
+    @Transactional      //게시글 수정, 엔티티에서 기능 실행
     public Post updatePost(Long id, String title, String content){
         Post post = postRepository.find(id);
-        post.setTitle(title);
-        post.setContent(content);
+        post.updatePost(title, content);
         return post;
     }
 

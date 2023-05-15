@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
-    public final PostService postService;
+    private final PostService postService;
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,11 +36,11 @@ public class PostController {
         return postService.findPost(id);
     }
 
-    //게시글 수정
+    //게시글 업데이트
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{id}")
     public Post updatePost(@PathVariable Long id, @RequestBody Post p){
-        return postService.updatePost(id, p.title, p.content);
+        return postService.updatePost(id, p.getTitle(), p.getContent());
     }
 
     //게시글 삭제
