@@ -49,7 +49,13 @@ public class PostController {
     public String deletePost(@PathVariable Long id){
         postService.deletePost(id);
         return "ok";
+    }
 
+    //게시글 제목 검색
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/search")
+    public List<Post> search(@RequestParam("keyword") String keyword){
+        return postService.searchFindPost(keyword);
     }
 
 }

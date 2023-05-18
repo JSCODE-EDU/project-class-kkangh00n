@@ -43,4 +43,9 @@ public class PostService {
         postRepository.delete(id);
     }
 
+    //게시글 검색 조회
+    public List<Post> searchFindPost(String keyword){
+        return postRepository.searchFindPost(keyword);
+    }
+
 }
