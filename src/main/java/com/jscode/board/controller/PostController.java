@@ -2,6 +2,7 @@ package com.jscode.board.controller;
 
 import com.jscode.board.Service.PostService;
 import com.jscode.board.domain.Post;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,19 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+
+    /**
+     * 테스트용 데이터 추가
+     */
+    @PostConstruct
+    public void init() {
+        for(int i=0; i<200; i++){
+            postService.savePost(Post.builder()
+                    .title("제목" + i)
+                    .content("내용" + i)
+                    .build());
+        }
+    }
 
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
