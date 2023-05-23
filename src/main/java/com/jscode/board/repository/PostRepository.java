@@ -33,4 +33,11 @@ public class PostRepository {
         em.remove(findPost);
     }
 
+    //검색 기능
+    public List<Post> searchFindPost(String keyword){
+        return em.createQuery("select p from Post p where p.title like %:k% order by p.createDate desc", Post.class)
+                .setParameter("k", keyword)
+                .getResultList();
+    }
+
 }
