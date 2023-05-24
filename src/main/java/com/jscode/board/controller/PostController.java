@@ -6,6 +6,7 @@ import com.jscode.board.dto.PostSaveRequestDto;
 import com.jscode.board.dto.PostResponseDto;
 import com.jscode.board.dto.PostUpdateRequestDto;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class PostController {
     //게시글 작성
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public PostResponseDto createPost(@RequestBody PostSaveRequestDto postSaveRequestDto){
+    public PostResponseDto createPost(@Valid @RequestBody PostSaveRequestDto postSaveRequestDto){
         return postService.savePost(postSaveRequestDto);
     }
 
@@ -56,7 +57,7 @@ public class PostController {
     //게시글 업데이트
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{id}")
-    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostUpdateRequestDto postUpdateRequestDto){
+    public PostResponseDto updatePost(@PathVariable Long id, @Valid @RequestBody PostUpdateRequestDto postUpdateRequestDto){
         return postService.updatePost(id, postUpdateRequestDto);
     }
 
