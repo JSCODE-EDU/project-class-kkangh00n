@@ -1,12 +1,16 @@
 package com.jscode.board.Service;
 
 import com.jscode.board.domain.Post;
+import com.jscode.board.dto.PostSaveRequestDto;
+import com.jscode.board.dto.PostResponseDto;
+import com.jscode.board.dto.PostUpdateRequestDto;
 import com.jscode.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,25 +20,29 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional      //게시글 작성
-    public Post savePost(Post post){
-        return postRepository.save(post);
+    public PostResponseDto savePost(PostSaveRequestDto postSaveRequestDto){
+        Post savePost = postSaveRequestDto.toEntity();
+        postRepository.save(savePost);
+        return PostResponseDto.fromEntity(savePost);
     }
 
     @Transactional      //게시글 수정, 엔티티에서 기능 실행
-    public Post updatePost(Long id, String title, String content){
-        Post post = postRepository.find(id);
-        post.updatePost(title, content);
-        return post;
+    public PostResponseDto updatePost(Long id, PostUpdateRequestDto postUpdateRequestDto){
+        Post updatePost = postRepository.find(id);
+        updatePost.updatePost(postUpdateRequestDto.getTitle(), postUpdateRequestDto.getContent());
+        return PostResponseDto.fromEntity(updatePost);
     }
 
     //게시글 조회
-    public Post findPost(Long id){
-        return postRepository.find(id);
+    public PostResponseDto findPost(Long id){
+        Post findPost = postRepository.find(id);
+        return PostResponseDto.fromEntity(findPost);
     }
 
     //전체 게시글 조회
-    public List<Post> findAll(){
-        return postRepository.findAll();
+    public List<PostResponseDto> findAll(){
+        List<Post> findAll = postRepository.findAll();
+        return findAll.stream().map(PostResponseDto::fromEntity).collect(Collectors.toList());
     }
 
     //게시글 삭제
