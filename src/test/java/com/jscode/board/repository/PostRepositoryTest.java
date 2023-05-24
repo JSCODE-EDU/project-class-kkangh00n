@@ -31,10 +31,10 @@ class PostRepositoryTest {
     public void findAll(){
 
         for(int i=0; i<200; i++){
-            Post post = new Post();
-            post.setTitle(String.valueOf(i));
-            post.setContent("게시글"+i);
-            postService.savePost(post);
+            Post post = Post.builder()
+                    .title("제목" + i)
+                    .content("내용" + i)
+                    .build();
         }
 
         List<Post> all = postRepository.findAll();
