@@ -8,8 +8,9 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 public class Post extends BaseTimeEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(name = "title", nullable = false)

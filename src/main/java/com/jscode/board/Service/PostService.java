@@ -4,6 +4,7 @@ import com.jscode.board.domain.Post;
 import com.jscode.board.dto.PostSaveRequestDto;
 import com.jscode.board.dto.PostResponseDto;
 import com.jscode.board.dto.PostUpdateRequestDto;
+import com.jscode.board.repository.PostJpaRepository;
 import com.jscode.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostService {
 
-    private final PostRepository postRepository;
+    private final PostJpaRepository postRepository;
 
     @Transactional      //게시글 작성
     public PostResponseDto savePost(PostSaveRequestDto postSaveRequestDto){
@@ -28,14 +29,14 @@ public class PostService {
 
     @Transactional      //게시글 수정, 엔티티에서 기능 실행
     public PostResponseDto updatePost(Long id, PostUpdateRequestDto postUpdateRequestDto){
-        Post updatePost = postRepository.find(id);
+        Post updatePost = postRepository.findById(id).get();
         updatePost.updatePost(postUpdateRequestDto.getTitle(), postUpdateRequestDto.getContent());
         return PostResponseDto.fromEntity(updatePost);
     }
 
     //게시글 조회
     public PostResponseDto findPost(Long id){
-        Post findPost = postRepository.find(id);
+        Post findPost = postRepository.findById(id).get();
         return PostResponseDto.fromEntity(findPost);
     }
 
@@ -48,12 +49,13 @@ public class PostService {
     //게시글 삭제
     @Transactional
     public void deletePost(Long id){
-        postRepository.delete(id);
+        Post post = postRepository.findById(id).get();
+        postRepository.delete(post);
     }
 
-    //게시글 검색 조회
-    public List<Post> searchFindPost(String keyword){
-        return postRepository.searchFindPost(keyword);
-    }
+//    //게시글 검색 조회
+//    public List<Post> searchFindPost(String keyword){
+//        return postRepository.searchFindPost(keyword);
+//    }
 
 }
